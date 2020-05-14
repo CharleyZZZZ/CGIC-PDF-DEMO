@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.cgic.platform.menu.mapper.SysMenuMapper">
+    <resultMap id="baseResultMap" type="org.cgic.platform.menu.dto.SysMenu" >
+        <id column="MENU_ID" property="menuId" jdbcType="DECIMAL"/>
+        <result column="RESOURCE_ID" property="resourceId" jdbcType="DECIMAL"/>
+        <result column="RESOURCE_URL" property="resourceUrl" jdbcType="VARCHAR"/>
+        <result column="PARENT_ID" property="parentId" jdbcType="DECIMAL"/>
+        <result column="MENU_ORDER" property="menuOrder" jdbcType="DECIMAL"/>
+        <result column="MENU_CODE" property="menuCode" jdbcType="VARCHAR"/>
+        <result column="MENU_NAME" property="menuName" jdbcType="VARCHAR"/>
+        <result column="PARENT_MENU_NAME" property="parentMenuName" jdbcType="VARCHAR"/>
+        <result column="MENU_ICON" property="menuIcon" jdbcType="VARCHAR"/>
+        <result column="DESCRIPTION" property="description" jdbcType="VARCHAR"/>
+        <result column="IS_ENABLED" property="isEnabled" jdbcType="VARCHAR"/>
+
+        <result column="OBJECT_VERSION_NUMBER" property="objectVersionNumber" jdbcType="DECIMAL"/>
+        <result column="CREATION_DATE" property="creationDate" jdbcType="DATE"/>
+        <result column="CREATED_BY" property="createdBy" jdbcType="DECIMAL"/>
+        <result column="LAST_UPDATED_BY" property="lastUpdatedBy" jdbcType="DECIMAL"/>
+        <result column="LAST_UPDATE_DATE" property="lastUpdateDate" jdbcType="TIMESTAMP"/>
+
+    </resultMap>
+
+    <select id="selectMenuInfoByUserId"
+            parameterType="java.lang.Long"
+            resultMap="baseResultMap">
+        SELECT
+            sm.MENU_ID,
+            sm.MENU_CODE,
+            sm.MENU_NAME,
+            sm.MENU_ICON,
+            sm.MENU_ORDER,
+            sm.PARENT_ID,
+            sr.RESOURCE_URL
+        FROM
+            sys_user su,
+            sys_user_role sur,
+            sys_menu_role smr,
+            sys_menu sm,
+            sys_resource sr
+        WHERE
+            su.USER_ID = sur.USER_ID
+        AND sur.ROLE_ID = smr.ROLE_ID
+        AND smr.MENU_ID = sm.MENU_ID
+        AND sm.RESOURCE_ID = sr.RESOURCE_ID
+        AND smr.IS_ENABLED = 'Y'
+        AND sm.IS_ENABLED = 'Y'
+        AND su.USER_ID = #{_paramter,jdbcType=DECIMAL}
+    </select>
+
+
+    <select id="selectMenuList"
+        resultMap="baseResultMap">
+        SELECT
+            sm.MENU_ID,
+            sm.MENU_CODE,
+            sm.MENU_NAME,
+            sm.MENU_ORDER,
+            sm.MENU_ICON,
+            sm.PARENT_ID,
+            sm.DESCRIPTION,
+            sm.IS_ENABLED,
+            sm.OBJECT_VERSION_NUMBER,
+            sm.CREATED_BY,
+            sm.CREATION_DATE,
+            sm.LAST_UPDATED_BY,
+            sm.LAST_UPDATE_DATE,
+            sr.RESOURCE_URL,
+            psm.MENU_NAME PARENT_MENU_NAME
+        FROM
+            sys_menu sm,
+            sys_resource sr,
+            sys_menu psm
+        WHERE
+            sm.RESOURCE_ID = sr.RESOURCE_ID
+        AND sm.PARENT_ID = psm.MENU_ID
+        AND sm.IS_ENABLED = 'Y'
+        AND psm.IS_ENABLED = 'Y'
+    </select>
+
+
+</mapper>

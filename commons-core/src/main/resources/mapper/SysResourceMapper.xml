@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.cgic.commons.mapper.SysResourceMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap id="BaseResultMap" type="org.cgic.commons.dto.SysResource">
+        <result column="RESOURCE_ID" property="resourceId" jdbcType="DECIMAL"/>
+        <result column="RESOURCE_TYPE" property="resourceType" jdbcType="VARCHAR"/>
+        <result column="RESOURCE_CODE" property="resourceCode" jdbcType="VARCHAR"/>
+        <result column="RESOURCE_URL" property="resourceUrl" jdbcType="VARCHAR"/>
+        <result column="RESOURCE_NAME" property="resourceName" jdbcType="VARCHAR"/>
+        <result column="OBJECT_VERSION_NUMBER" property="objectVersionNumber" jdbcType="DECIMAL"/>
+        <result column="CREATION_DATE" property="creationDate" jdbcType="DATE"/>
+        <result column="CREATED_BY" property="createdBy" jdbcType="DECIMAL"/>
+        <result column="LAST_UPDATED_BY" property="lastUpdatedBy" jdbcType="DECIMAL"/>
+        <result column="LAST_UPDATE_DATE" property="lastUpdateDate" jdbcType="DATE"/>
+    </resultMap>
+
+
+</mapper>

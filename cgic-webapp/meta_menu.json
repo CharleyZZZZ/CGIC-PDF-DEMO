@@ -1,0 +1,30 @@
+{
+  "message": "success",
+  "success": true,
+  "code": 20000,
+  "data": {
+    "name": "Uncle",
+    "avatar": "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif",
+    "roles": [
+      "admin"
+    ],
+    "routers": [
+      {
+        "name": "Test_It",
+        "path": "/test",
+        "component": "Layout",
+        "children": [
+          {
+            "name": "Test_It_c",
+            "path": "index",
+            "component": "Test",
+            "meta": {
+              "icon": "example",
+              "title": "后台"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

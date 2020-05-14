@@ -1,0 +1,15 @@
+
+
+-- 已运行
+ALTER TABLE pubud.sys_menu_role ADD `IS_ENABLED` VARCHAR(2) NOT NULL COMMENT '是否启用';
+
+ALTER TABLE pubud.sys_menu ADD `IS_ENABLED` VARCHAR(2) NOT NULL COMMENT '是否启用';
+
+-- 未运行
+ALTER TABLE pubud.sys_user ADD `IS_ENABLED` VARCHAR(2) NOT NULL COMMENT '是否启用';
+
+ALTER TABLE pubud.sys_resource ADD `IS_ENABLED` VARCHAR(2) NOT NULL COMMENT '是否启用';
+
+ALTER TABLE pubud.sys_role ADD `IS_ENABLED` VARCHAR(2) NOT NULL COMMENT '是否启用';
+
+

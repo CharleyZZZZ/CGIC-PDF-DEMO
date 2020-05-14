@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.cgic.oauth.mapper.SysMenuTMapper">
+    <resultMap id="baseResultMap" type="org.cgic.oauth.dto.SysMenuT" >
+        <id column="ID" property="id" jdbcType="DECIMAL"/>
+        <result column="CODE" property="code" jdbcType="VARCHAR"/>
+        <result column="NAME" property="name" jdbcType="VARCHAR"/>
+        <result column="ICON" property="icon" jdbcType="VARCHAR"/>
+        <result column="PATH" property="path" jdbcType="VARCHAR"/>
+        <result column="COMPONENT" property="component" jdbcType="VARCHAR"/>
+        <result column="TITLE" property="title" jdbcType="VARCHAR"/>
+        <result column="PARENT_ID" property="parentId" jdbcType="DECIMAL"/>
+        <result column="ORDER" property="order" jdbcType="DECIMAL"/>
+        <result column="IS_ENABLED" property="isEnabled" jdbcType="VARCHAR"/>
+        <result column="PARENT_MENU_NAME" property="parentMenuName" jdbcType="VARCHAR"/>
+
+        <result column="OBJECT_VERSION_NUMBER" property="objectVersionNumber" jdbcType="DECIMAL"/>
+        <result column="CREATION_DATE" property="creationDate" jdbcType="DATE"/>
+        <result column="CREATED_BY" property="createdBy" jdbcType="DECIMAL"/>
+        <result column="LAST_UPDATED_BY" property="lastUpdatedBy" jdbcType="DECIMAL"/>
+        <result column="LAST_UPDATE_DATE" property="lastUpdateDate" jdbcType="TIMESTAMP"/>
+
+    </resultMap>
+
+    <select id="selectMenuInfoByUserId"
+            parameterType="java.lang.Long"
+            resultMap="baseResultMap">
+        SELECT
+            smt.ID,
+            smt.`CODE`,
+            smt.`NAME`,
+            smt.ICON,
+            smt.PATH,
+            smt.COMPONENT,
+            smt.TITLE,
+            smt.PARENT_ID,
+            smt.`ORDER`
+        FROM
+            sys_user su,
+            sys_user_role sur,
+            sys_menu_role smr,
+            sys_menu_t smt
+        WHERE
+            su.USER_ID = sur.USER_ID
+        AND sur.ROLE_ID = smr.ROLE_ID
+        AND smr.MENU_ID = smt.ID
+        AND smr.IS_ENABLED = 'Y'
+        AND su.USER_ID = #{_paramter,jdbcType=DECIMAL}
+    </select>
+
+
+
+
+</mapper>

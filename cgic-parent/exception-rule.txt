@@ -1,0 +1,12 @@
+#异常处理规范：
+#每个业务场景必须定义自己的异常类
+#extend BaseException 实现自己方法，示例如下：
+
+
+并添加枚举，编写每种异常的code和message
+code规则如下：
+    40 + 端口后俩位（微服务级别） + 三位业务编号（递增）
+示例：
+    cgic-platform  服务端口： 8010
+    SysMenuException 业务编号： 2
+则code可为： 4010200 ~ 4010299

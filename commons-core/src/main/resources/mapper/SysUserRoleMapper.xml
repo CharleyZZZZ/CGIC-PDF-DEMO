@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.cgic.commons.mapper.SysUserRoleMapper">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap id="BaseResultMap" type="org.cgic.commons.dto.SysUserRole">
+        <result column="USER_ROLE_ID" property="userRoleId" jdbcType="DECIMAL"/>
+        <result column="USER_ID" property="userId" jdbcType="DECIMAL"/>
+        <result column="ROLE_ID" property="roleId" jdbcType="DECIMAL"/>
+        <result column="OBJECT_VERSION_NUMBER" property="objectVersionNumber" jdbcType="DECIMAL"/>
+        <result column="CREATION_DATE" property="creationDate" jdbcType="DATE"/>
+        <result column="CREATED_BY" property="createdBy" jdbcType="DECIMAL"/>
+        <result column="LAST_UPDATED_BY" property="lastUpdatedBy" jdbcType="DECIMAL"/>
+        <result column="LAST_UPDATE_DATE" property="lastUpdateDate" jdbcType="DATE"/>
+    </resultMap>
+
+    <resultMap id="sysRoleResultMap" type="org.cgic.commons.dto.SysRole">
+        <id column="ROLE_ID" property="roleId" jdbcType="DECIMAL"/>
+        <result column="ROLE_CODE" property="roleCode" jdbcType="VARCHAR"/>
+        <result column="ROLE_NAME" property="roleName" jdbcType="VARCHAR"/>
+        <result column="OBJECT_VERSION_NUMBER" property="objectVersionNumber" jdbcType="DECIMAL"/>
+        <result column="CREATION_DATE" property="creationDate" jdbcType="DATE"/>
+        <result column="CREATED_BY" property="createdBy" jdbcType="DECIMAL"/>
+        <result column="LAST_UPDATED_BY" property="lastUpdatedBy" jdbcType="DECIMAL"/>
+        <result column="LAST_UPDATE_DATE" property="lastUpdateDate" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--根据userId获取角色列表-->
+    <select id="selectRolesByUserId"
+            parameterType="java.lang.Long"
+            resultMap="sysRoleResultMap">
+        SELECT
+            sr.ROLE_ID,
+            sr.ROLE_CODE,
+            sr.ROLE_NAME
+        FROM
+            sys_user_role sur
+        JOIN sys_role sr ON sr.ROLE_ID = sur.ROLE_ID
+        WHERE
+            sur.USER_ID = #{_paramter,jdbcType=DECIMAL};
+    </select>
+
+</mapper>
